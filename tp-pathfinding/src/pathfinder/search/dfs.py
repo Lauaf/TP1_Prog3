@@ -21,8 +21,30 @@ class DepthFirstSearch:
         # Initialize expanded with the empty dictionary
         expanded = dict()
 
+        # Apply objective test
+        if grid.objective_test(root.state):
+            return Solution(root, expanded)
+
         # Initialize frontier with the root node
-        # TODO Complete the rest!!
-        # ...
+        frontier = StackFrontier()
+        frontier.add(root)
+
+        while not frontier.is_empty():
+            node = frontier.remove()
+        
+            for action in grid.actions(node.state):
+                successor = grid.result(node.state, action)
+                node_s = Node(successor, node, action, node.cost +grid.individual_cost(node.state, action))
+
+
+                #if not hay_ciclos(s'n):
+                    #if grid.objective_test(successor): 
+                        #return Solution(node_s)
+                    #frontier.add(node_s)
+                    #expanded[node_s.state] = True
+
+
+
+   
 
         return NoSolution(expanded)
