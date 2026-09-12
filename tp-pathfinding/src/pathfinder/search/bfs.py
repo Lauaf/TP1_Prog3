@@ -1,7 +1,7 @@
-from ..models.grid import Grid
 from ..models.frontier import QueueFrontier
-from ..models.solution import NoSolution, Solution
+from ..models.grid import Grid
 from ..models.node import Node
+from ..models.solution import NoSolution, Solution
 
 
 class BreadthFirstSearch:

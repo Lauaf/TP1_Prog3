@@ -1,7 +1,7 @@
-from ..models.grid import Grid
 from ..models.frontier import StackFrontier
-from ..models.solution import NoSolution, Solution
+from ..models.grid import Grid
 from ..models.node import Node
+from ..models.solution import NoSolution, Solution
 
 
 class DepthFirstSearch:
@@ -31,20 +31,29 @@ class DepthFirstSearch:
 
         while not frontier.is_empty():
             node = frontier.remove()
-        
+
             for action in grid.actions(node.state):
                 successor = grid.result(node.state, action)
-                node_s = Node(successor, node, action, node.cost +grid.individual_cost(node.state, action))
 
+                # Check if the successor was already expanded
+                if successor in expanded:
+                    continue
 
-                #if not hay_ciclos(s'n):
-                    #if grid.objective_test(successor): 
-                        #return Solution(node_s)
-                    #frontier.add(node_s)
-                    #expanded[node_s.state] = True
+                node_s = Node(
+                    "",
+                    successor,
+                    cost=node.cost + grid.individual_cost(node.state, action),
+                    parent=node,
+                    action=action,
+                )
 
+                # Mark the successor as expanded
+                expanded[successor] = True
 
+                # Apply objective test
+                if grid.objective_test(successor):
+                    return Solution(node_s, expanded)
 
-   
+                frontier.add(node_s)
 
         return NoSolution(expanded)
