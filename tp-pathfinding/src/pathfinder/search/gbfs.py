@@ -35,7 +35,7 @@ class GreedyBestFirstSearch:
         while not frontier.is_empty():
             node = frontier.pop()
 
-            #Objective test upon expanding the npde 
+            #Objective test upon expanding the node
             if grid.objective_test(node.state):
                 return Solution(node, reached)
 
@@ -43,8 +43,8 @@ class GreedyBestFirstSearch:
             for action in grid.actions(node.state):
                 successor = grid.result(node.state, action)
                 if successor not in reached:
-                    reached[successor] = True
                     cost = node.cost + grid.individual_cost(node.state, action)
+                    reached[successor] = cost
                     child = Node("", state=successor, cost=cost, parent=node, action=action)
 
                     #calculate heuristic to the goal

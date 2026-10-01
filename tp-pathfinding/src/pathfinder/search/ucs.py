@@ -31,6 +31,10 @@ class UniformCostSearch:
             #Pop the node with the lowest cost from the frontier
             node = frontier.pop()
 
+            #Skip the node if a cheaper path to its state was found after it was added
+            if node.cost > reached[node.state]:
+                continue
+
             # Check if the goal state is reached
             if grid.objective_test(node.state):
                 return Solution(node, reached)
